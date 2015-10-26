@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\EL">
+      <UniqueIdentifier>{b207658b-f5be-4e14-b04a-5c32aeeba14c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MEM">
+      <UniqueIdentifier>{5c34204f-7fb9-470b-b119-c6467ba2edfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SEmodel">
+      <UniqueIdentifier>{d953a3e9-4dc0-4f2a-a107-7bcd0caada4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SE">
+      <UniqueIdentifier>{4b2337f3-c703-4d67-afb8-2494a2618634}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TASK">
+      <UniqueIdentifier>{61f21a01-29d6-493e-a4b9-87fd579e175b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TASK\ELASTAT">
+      <UniqueIdentifier>{88092767-ff03-487b-be6b-2220dee5a46d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TASK\MOTION_EIGFR">
+      <UniqueIdentifier>{f88ec4fd-2167-4c5d-89c7-9edcc74774bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TASK\EIGFR_SSI">
+      <UniqueIdentifier>{541e51c7-0183-482a-8a7c-f9d8b010637d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FullModel">
+      <UniqueIdentifier>{bbfd2624-2f4d-4661-98a1-86b4f6ab6f1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FACE">
+      <UniqueIdentifier>{7583b794-a7f3-44bb-b15f-352687949da5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LOADS">
+      <UniqueIdentifier>{95390e8f-664d-49c9-9116-1ada948dfb24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PSE_Client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\Xolparal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\EL.cpp">
+      <Filter>Source Files\EL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\EL_22_TRI.cpp">
+      <Filter>Source Files\EL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\EL_24_TET.cpp">
+      <Filter>Source Files\EL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\EL_25_HEX.cpp">
+      <Filter>Source Files\EL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\EL_5_TRI.cpp">
+      <Filter>Source Files\EL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\EL_DINT.cpp">
+      <Filter>Source Files\EL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\EL_Face.cpp">
+      <Filter>Source Files\EL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\EL_GetLocCRD.cpp">
+      <Filter>Source Files\EL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\EL_Jacoby.cpp">
+      <Filter>Source Files\EL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\EL_STIF.cpp">
+      <Filter>Source Files\EL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\MEM.cpp">
+      <Filter>Source Files\MEM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\MEM_graf.cpp">
+      <Filter>Source Files\MEM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\MEM_RCM.cpp">
+      <Filter>Source Files\MEM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SEmodel.cpp">
+      <Filter>Source Files\SEmodel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SEmodel_AD.cpp">
+      <Filter>Source Files\SEmodel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SEmodel_AD_L0.cpp">
+      <Filter>Source Files\SEmodel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SEmodel_AD_L1.cpp">
+      <Filter>Source Files\SEmodel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SEmodel_AD_LOC.cpp">
+      <Filter>Source Files\SEmodel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SEmodel_AD_Print.cpp">
+      <Filter>Source Files\SEmodel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SE.cpp">
+      <Filter>Source Files\SE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SEAssembling.cpp">
+      <Filter>Source Files\SE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SEenv.cpp">
+      <Filter>Source Files\SE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SEmem.cpp">
+      <Filter>Source Files\SE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SEsolverPCG.cpp">
+      <Filter>Source Files\SE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SEsubspace.cpp">
+      <Filter>Source Files\SE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SETransform.cpp">
+      <Filter>Source Files\SE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SETransformDisp.cpp">
+      <Filter>Source Files\SE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SETransformForse.cpp">
+      <Filter>Source Files\SE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\SEWriteRead.cpp">
+      <Filter>Source Files\SE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\T_elastat.cpp">
+      <Filter>Source Files\TASK\ELASTAT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\T_motionint_eigf.cpp">
+      <Filter>Source Files\TASK\MOTION_EIGFR</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\T_ssi_eigen.cpp">
+      <Filter>Source Files\TASK\EIGFR_SSI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\T_ssi_eigen_conv.cpp">
+      <Filter>Source Files\TASK\EIGFR_SSI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\T_ssi_eigen_init.cpp">
+      <Filter>Source Files\TASK\EIGFR_SSI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\T_ssi_eigen_norm.cpp">
+      <Filter>Source Files\TASK\EIGFR_SSI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\T_ssi_eigen_sbsp.cpp">
+      <Filter>Source Files\TASK\EIGFR_SSI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\FullModel.cpp">
+      <Filter>Source Files\FullModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\FullModel_MASS.cpp">
+      <Filter>Source Files\FullModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\FullModel_Print.cpp">
+      <Filter>Source Files\FullModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\FullModel_Read_ANSYS.cpp">
+      <Filter>Source Files\FullModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\FullModel_Read_UZOR.cpp">
+      <Filter>Source Files\FullModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\FullModel_Surf.cpp">
+      <Filter>Source Files\FullModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\FACE.cpp">
+      <Filter>Source Files\FACE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PSE_common_files\L_FDPoint.cpp">
+      <Filter>Source Files\LOADS</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\PSE_common_files\EL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PSE_common_files\FACE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PSE_common_files\FullModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PSE_common_files\L_FDPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PSE_common_files\MEM.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PSE_common_files\Problem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PSE_common_files\SE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PSE_common_files\SE_structure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PSE_common_files\SEmodel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PSE_common_files\StructData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PSE_common_files\T_elastat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PSE_common_files\T_motionint_eigf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PSE_common_files\T_ssi_eigen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

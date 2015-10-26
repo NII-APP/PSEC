@@ -1,0 +1,5 @@
+**.exe
+**.dll
+**/Release
+**/Debug
+**.user
