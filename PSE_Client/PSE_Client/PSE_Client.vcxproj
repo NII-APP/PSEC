@@ -60,7 +60,8 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -76,6 +77,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -136,6 +139,10 @@
     <ClCompile Include="..\..\PSE_common_files\FullModel_Surf.cpp" />
     <ClCompile Include="..\..\PSE_common_files\FACE.cpp" />
     <ClCompile Include="..\..\PSE_common_files\L_FDPoint.cpp" />
+    <ClCompile Include="test_eigf.cpp" />
+    <ClCompile Include="test_elastat.cpp" />
+    <ClCompile Include="test_motionint_eigf.cpp" />
+    <ClCompile Include="UserMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\PSE_common_files\EL.h" />

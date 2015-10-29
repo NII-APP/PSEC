@@ -189,6 +189,18 @@
     <ClCompile Include="..\..\PSE_common_files\L_FDPoint.cpp">
       <Filter>Source Files\LOADS</Filter>
     </ClCompile>
+    <ClCompile Include="UserMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_elastat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_eigf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_motionint_eigf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\PSE_common_files\EL.h">

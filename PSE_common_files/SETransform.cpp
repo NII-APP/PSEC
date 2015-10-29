@@ -3,7 +3,6 @@
 
 extern void xolp( double *A, long long int *D, int k);
 extern void xolsinglesolv( double *L, long long int *D, int k, double *B );
-extern void xolmultisolv_1th( double *L, long long int *D, int k, double **B, int nv );
 
 void CSE::StiffMatrixTransform()
 {
@@ -60,39 +59,28 @@ void CSE::MatrixFixing()
 
 void CSE::SScolTransform(int colstart,int colend)
 {
-	int i,j,isscol,ncol;
-	double **COLSS,**COLIS;
+	int i,j,isscol;
+	double *COLSS,*COLIS;
 	COLSS = NULL;
 	COLIS = NULL;
 
-	ncol = colend - colstart;
-
 	printf("SS calc....\n");
 
-	COLSS = MM->MEM_NEW(COLSS,ncol,NSE);
-	COLIS = MM->MEM_NEW(COLIS,ncol,NIE);
+	COLSS = MM->MEM_NEW(COLSS,NSE);
+	COLIS = MM->MEM_NEW(COLIS,NIE);
 
-	if ( (isscol%10) == 0 ) printf("iss = %d // %d\r",isscol,colend);
 	for (isscol = colstart; isscol<colend; isscol++)
 	{
+		if ( (isscol%10) == 0 ) printf("iss = %d // %d\r",isscol,colend);
 		IScolExpand(COLIS, isscol);
-	}
-
-	xolmultisolv_1th(STII, STII_ENV, NIE, COLIS, ncol);
-	
-	SScolCalc(COLSS,COLIS,isscol);
-
-	//далее нужна синхронизация
-	for (isscol = colstart; isscol<colend; isscol++)
-	{
+		xolsinglesolv(STII, STII_ENV, NIE, COLIS);
+		SScolCalc(COLSS,COLIS,isscol);
 		SScolInsert(COLSS,isscol);
 	}
-	//конец синхронизации
-
 	printf("\n");
 
-	MM->MEM_DEL(COLSS,ncol,NSE);
-	MM->MEM_DEL(COLIS,ncol,NIE);
+	MM->MEM_DEL(COLSS,NSE);
+	MM->MEM_DEL(COLIS,NIE);
 }
 
 void CSE::IScolExpand(double *COLIS,int isscol)

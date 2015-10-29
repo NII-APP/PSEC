@@ -90,7 +90,6 @@ int SSIEIGEN::MainSSI()
 	while (endsolflag != 1)
 	{
 		// вызвать упругое решение дл€ всех векторов UF, необходимо умножить этивектора на матрицу масс
-		
 		for (i=0; i<nform; i++)
 		{
 			for (j=0; j<nur; j++)
@@ -108,7 +107,6 @@ int SSIEIGEN::MainSSI()
 
 		CollinearDetection();
 		
-
 		// определение строк матриц жесткости и масс в подпространстве
 		sprintf( strl," ITL..%d.......make subspace matrix......",ITL);
 		statusbar( strl );
@@ -116,11 +114,9 @@ int SSIEIGEN::MainSSI()
 		fprintf(fp,"%sOS time:\t\t\t\t%s\n",strl,tmpbuf);
 		fflush(fp);
 		
-
 		//KKmaincalc();
 		//KKmaincalcByEl();
 		psem->CalcSubspaceMatrix(KK);
-
 
 		//вывод KK
 		fprintf(fp,"\n\nIT=%d   KK _after KKmaincalcByEl !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n",ITL);
@@ -258,8 +254,8 @@ int SSIEIGEN::MainSSI()
 
 		// ѕроверка окончани€ решени€
 
-		if( nfconv == NEigen){
-
+		if( nfconv == NEigen)
+		{
 			endsolflag = 1;
 		}
 

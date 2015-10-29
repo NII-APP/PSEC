@@ -164,8 +164,17 @@ void SSIEIGEN::StandartStartingVectors()
 	nrandforces = 10;
 	if ( nrandforces*nform*2 > nur ) nrandforces = 1; 
 
-	for (i=0; i<nur; i++){
+	for (i=0; i<nur; i++)
+	{
 		tmpiL[i] = 0;
+	}
+
+	for ( i=0; i<nform; i++)
+	{
+		for (j=0; j<nur; j++)
+		{
+			UF[i][j] = 0.0;
+		}
 	}
 
 	int irf = 0;

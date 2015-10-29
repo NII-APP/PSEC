@@ -335,67 +335,66 @@ void MOTIONEIGF::EvaluateFDPoint_EndStep()
 
 void MOTIONEIGF::TestCase_InertiaLoading()
 {
-	//int i,j,k,nstep,printstep;
-	//float dt;
-	//float t,tend,taxstart;
-	//float ax[3],axold[3],axstep[3];
-	//char strl[256];
-	//FILE *fp;
+	int i,j,k,nstep,printstep;
+	float dt;
+	float t,tend,taxstart;
+	float ax[3],axold[3],axstep[3];
+	char strl[256];
+	FILE *fp;
 
-	////программа реализует внезапное приложение ускорения
+	//программа реализует внезапное приложение ускорения
 
-	//dt = 0.001; //шаг по времени
-	//tend = 0.2; //полное время моделирования
-	//taxstart = 0.1*tend;
+	dt = 0.001; //шаг по времени
+	tend = 0.2; //полное время моделирования
+	taxstart = 0.1*tend;
 
-	//nstep = (int) (tend/dt);
-	//printstep = 1;
+	nstep = (int) (tend/dt);
+	printstep = 1;
 
-	//for (k=0;k<3; k++) ax[k] = 0.0;
+	for (k=0;k<3; k++) ax[k] = 0.0;
 
-	//printf("\nMotionInt   TestCase_InertiaLoading()\n");
-	//for (i=1; i<=nstep; i++)
-	//{
-	//	t = i*dt; //время на конец шага
-	//	for (k=0;k<3; k++) axold[k] = ax[k];
-	//	if ( t > taxstart )
-	//	{
-	//		ax[0] = 1.0;
-	//		ax[1] = 1.0;
-	//		ax[2] = 1.0;
-	//	}
-	//	else
-	//	{
-	//		ax[0] = 0.0;
-	//		ax[1] = 0.0;
-	//		ax[2] = 0.0;
-	//	}
+	printf("\nMotionInt   TestCase_InertiaLoading()\n");
+	for (i=1; i<=nstep; i++)
+	{
+		t = i*dt; //время на конец шага
+		//расчет нагрузки - вектора ускорения 
+		if ( t > taxstart )
+		{
+			ax[0] = 1.0;
+			ax[1] = 1.0;
+			ax[2] = 1.0;
+		}
+		else
+		{
+			ax[0] = 0.0;
+			ax[1] = 0.0;
+			ax[2] = 0.0;
+		}
 
-	//	for (k=0;k<3; k++) axstep[k] = (ax[k] + axold[k])/2;
+		//переход к интегрированию на новом шаге по времени
+		StartNewStep(); 
+		//итерационное уточнение на шаге по времени здесь не требуется, т.к. нагрузка не зависит от параметров движения системы
 
-	//	ResetModalForces();
-	//	AddInertiaForces(axstep);
+		// добавление сил инерции к модальным силам в конце шага
+		AddInertiaForces_EndStep(ax);
 
-	//	for (k=0; k<2*nform; k++)
-	//	{
-	//		VST0[k] = VST[k];
-	//	}
+		//расчет вектора состояния в конце текущего шага по времени
+		MakeSingleTimeStep(dt);
 
-	//	MakeSingleTimeStep(dt);
-
-	//	if ( i%printstep == 0 )
-	//	{
-	//		printf("\ri = %d \\ %d",i,nstep);
-	//		EvaluateAllDOF();
-	//		sprintf( strl,"%s\\MotionInt_DISP_%d.vtk\0", pfm->pathmain, i );
-	//		fp = fopen(strl,"w");
-	//		pfm->ParaView_PrintGrid(fp);
-	//		pfm->ParaView_StartNodeDataSection(fp);
-	//		sprintf(strl,"deflection_by_time");
-	//		pfm->ParaView_SingleVector(fp,strl,DISP);
-	//		fclose(fp);
-	//	}
-	//}
+		//печать результатов, включая анимацию
+		if ( i%printstep == 0 )
+		{
+			printf("\ri = %d \\ %d",i,nstep);
+			EvaluateAllDOF();
+			sprintf( strl,"%s\\MotionInt_DISP_%d.vtk\0", pfm->pathmain, i );
+			fp = fopen(strl,"w");
+			pfm->ParaView_PrintGrid(fp);
+			pfm->ParaView_StartNodeDataSection(fp);
+			sprintf(strl,"deflection_by_time");
+			pfm->ParaView_SingleVector(fp,strl,DISP);
+			fclose(fp);
+		}
+	}
 
 }
 	

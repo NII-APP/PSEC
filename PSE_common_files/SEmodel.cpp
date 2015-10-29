@@ -26,7 +26,7 @@ SEMODEL::SEMODEL(void)
 	SEmaxLev = 10;
 	loadtype = 1;
 	SElevelsnum = 0;
-	sprintf(glob_str_path,"C:\\PSEtemp\\testeigen\\stifmatr");
+//	sprintf(glob_str_path,"C:\\PSEtemp\\testeigen\\stifmatr");
 }
 
 SEMODEL::~SEMODEL(void)

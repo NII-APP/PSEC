@@ -14,7 +14,7 @@ int msg(char *str);
 //void statusbar(char *strl );
 void xolp( double *A, long long int *D, int k);
 void xolsinglesolv( double *L, long long int *D, int k, double *B );
-void xolmultisolv_1th( double *L, long long int *D, int k, double **B, int nv )
+//void xolmultisolv_1th( double *L, long long int *D, int k, double **B, int nv );
 
 DWORD WINAPI element(void *n);
 
@@ -229,39 +229,39 @@ void xolsinglesolv( double *L, long long int *D, int k, double *B )
 }
 
 
-void xolmultisolv_1th( double *L, long long int *D, int k, double **B, int nv )
-{
-	long long int  i,j,jmax;
-	double bi,s,*pL,*pB;
-
-	for(i=1; i<k; i++)
-	{
-		s=0;
-		pL = &L[D[i-1]+1];
-		pB = &B[i+1-D[i]+D[i-1]];
-		jmax = D[i] - D[i-1] - 1;
-		for (j=0; j<jmax; j++) s += *pL++**pB++;
-		B[i] -= s;
-	}
-	for (i=0; i<k; i++)
-	{
-		B[i] = B[i]/L[D[i]];
-	}
-
-	for(i=k-1; i>=0; i--)
-	{
-		bi = B[i];
-		pB = &B[i];
-		pL = &L[D[i]];
-		if (i>0)
-		{
-			pL--;
-			pB--;
-			jmax = D[i] - D[i-1] - 1;
-		}
-		else jmax = 0;
-		for (j=0; j<jmax; j++) *pB-- -= *pL--*bi;
-	}	
-
-}
+//void xolmultisolv_1th( double *L, long long int *D, int k, double **B, int nv )
+//{
+//	long long int  i,j,jmax;
+//	double bi,s,*pL,*pB;
+//
+//	for(i=1; i<k; i++)
+//	{
+//		s=0;
+//		pL = &L[D[i-1]+1];
+//		pB = &B[i+1-D[i]+D[i-1]];
+//		jmax = D[i] - D[i-1] - 1;
+//		for (j=0; j<jmax; j++) s += *pL++**pB++;
+//		B[i] -= s;
+//	}
+//	for (i=0; i<k; i++)
+//	{
+//		B[i] = B[i]/L[D[i]];
+//	}
+//
+//	for(i=k-1; i>=0; i--)
+//	{
+//		bi = B[i];
+//		pB = &B[i];
+//		pL = &L[D[i]];
+//		if (i>0)
+//		{
+//			pL--;
+//			pB--;
+//			jmax = D[i] - D[i-1] - 1;
+//		}
+//		else jmax = 0;
+//		for (j=0; j<jmax; j++) *pB-- -= *pL--*bi;
+//	}	
+//
+//}
 
