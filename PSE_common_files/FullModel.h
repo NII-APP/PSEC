@@ -77,6 +77,7 @@ public:
 	void ReadFromUzor();
 	void ReadFromAnsys_FullGrid();
 	void ReadFromUzor_NewFormat();
+	void ReadFromAnsys_inpFormat();
 
 	void InitIntPoint();
 	void AttachElement(CEL *el, int elnum);

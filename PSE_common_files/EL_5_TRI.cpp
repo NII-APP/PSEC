@@ -7,7 +7,7 @@ void CEL::GeneralParameters5()
 	NORT = 2;
 	NORTfullcrd = NORT;
 	NDOF = 2;
-	NPINT = 4; //??????
+	NPINT = 3; // O(h^3)
 	NNE = NN*NDOF;
 	NNORT = NN*NORT;
 	NDEF = 3;
@@ -27,7 +27,21 @@ void CEL::GeneralParameters5()
 
 void CEL::Init_VolIntPointLocCrd_5()
 {
+	int i,j;
+	double a,b;
 
+	a = 0.0;
+	b = 0.5;
+
+	for (i=0; i<NPINT; i++)
+	{
+		for (j=0; j<nvlcrd; j++)
+		{
+			vlcrdint[i][j] = b;
+		}
+		vlcrdint[i][i] = a;
+		Wvint[i] = 1.0/3.0;
+	}
 }
 
 void CEL::FF_5(double *F, double *lcrd)
