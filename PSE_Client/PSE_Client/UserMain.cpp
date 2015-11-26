@@ -15,10 +15,9 @@ char glob_str_taskpath[256];
 
 void usermain()
 {
-	sprintf(glob_str_path,"C:\\PSEtemp\\testeigen\\stifmatr");
+	sprintf(glob_str_path,"C:\\PSEtemp\\testeigen\\stifmatr1");
 
-
-	sprintf(glob_str_taskpath,"C:\\Temp\\TestNX\\AnsFormat");
+	sprintf(glob_str_taskpath,"C:\\Temp\\TestNX\\AnsFormat1");
 
 	//usermain_motionint_eigf();
 	usermain_eigf();
