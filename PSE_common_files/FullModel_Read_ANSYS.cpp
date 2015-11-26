@@ -5,6 +5,8 @@
 #include "stdlib.h"
 #include <string.h>
 
+extern char glob_str_modelname[256];
+
 void FULLMODEL::ReadFromAnsys_FullGrid()
 {	
 	int i,j,tmpi,*perenum,crdrenum[3],neltypes,*model_eltypes,eltype;
@@ -242,7 +244,7 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 
 	printf("\nModel loading...\n");
 
-	sprintf(str1,"%s\\ans_model.txt",pathmain);
+	sprintf(str1,"%s\\%s",pathmain,glob_str_modelname);
 	fp1 = fopen(str1,"r");
 
 	//подсчет количества узлов
