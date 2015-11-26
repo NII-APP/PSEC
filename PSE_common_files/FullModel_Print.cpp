@@ -23,7 +23,7 @@ void FULLMODEL::ParaView_PrintCRD(FILE *fp)
 	{
 		for (i=0; i<NN; i++)
 		{
-			fprintf(fp,"%f %f 0.0\n", CRD[KORT*i], CRD[KORT*i+1]);
+			fprintf(fp,"%f %f 0.000000\n", CRD[KORT*i], CRD[KORT*i+1]);
 		}
 	}
 }
