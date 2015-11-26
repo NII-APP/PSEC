@@ -214,15 +214,22 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 	//массив соответствия номеров типов элементов в ANSYS и PSE (аналогично PARAVIEW)
 	int renumber_types[500];
 	int nodenumber_newtypes[500];
+	int nort_oldtypes[500];
+	int similarcrdflag[3];
+	double similarcrd[3];
 
 	for (i=0; i<500; i++)
 	{
 		renumber_types[i] = -1;
 		nodenumber_newtypes[i] = -1;
+		nort_oldtypes[i] = -1;
 	}
 
-	renumber_types[187] = 24;
 	renumber_types[182] = 5;
+	renumber_types[187] = 24;
+	
+	nort_oldtypes[182] = 2;
+	nort_oldtypes[187] = 3;
 
 	nodenumber_newtypes[3] = 2;
 	nodenumber_newtypes[5] = 3;
@@ -271,13 +278,18 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 		pch = strstr(str1,"MP, EX,");
 		if ( pch != NULL )
 		{
+			pch+=7;
 			sscanf(pch,"%ld",&nmat);
 		}
 		pch = strstr(str1,"--------");
 		if ( pch != NULL )
 		{
-			fl = 0;
-			break;
+			pch = strstr(str1,"MATERIALS");
+			if (pch == NULL)
+			{
+				fl = 0;
+				break;
+			}
 		}
 	}
 
@@ -286,24 +298,25 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 	neltypes = 0;
 	while (fl == 1)
 	{
-		//требуется проанализировать количество координат в решаемой задаче и количество степеней свободы
 		fgets(str1,255,fp1);
 
 		pch = strstr(str1,"ET,");
 		if ( pch != NULL )
 		{
+			pch += 3;
 			sscanf(pch,"%ld",&neltypes);
 		}
 		pch = strstr(str1,"--------");
 		if ( pch != NULL )
 		{
-			fl = 0;
-			break;
+			pch = strstr(str1,"ET");
+			if (pch == NULL)
+			{
+				fl = 0;
+				break;
+			}
 		}
 	}
-
-	//временное назначение числа рабочих координат
-	KORT = 2;
 
 	//подсчет количества элементов
 	fl = 1;
@@ -329,9 +342,10 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 		}
 	}
 
-	NNE = NN*KORT;
+	
+	double *CRDTMP;
 
-	CRD = new double[NNE];
+	CRDTMP = new double[NN*3]; // временный массив с расчетом на максимальное число координат
 	IND = new int*[NEL];
 	MTR = new int [NEL];
 	mat = new MATPROP[nmat];
@@ -341,7 +355,6 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 
 	//считывание координат узлов
 	fl = 1;
-	NN = 0;
 	int in = 0,iort = 0;
 	while (fl == 1)
 	{
@@ -361,12 +374,14 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 				fscanf(fp1,"%s",str1);
 				fscanf(fp1,"%s",str1);
 				fscanf(fp1,"%s",str1);
-				CRD[in*KORT+iort] = atof(str1);
+				CRDTMP[in*3+iort] = atof(str1);
 				iort++;
 				fscanf(fp1,"%s",str1);
-				CRD[in*KORT+iort] = atof(str1);
+				CRDTMP[in*3+iort] = atof(str1);
 				iort++;
 				fscanf(fp1,"%s",str1);
+				CRDTMP[in*3+iort] = atof(str1);
+				iort++;
 				
 				in++;
 				iort = 0;
@@ -374,20 +389,166 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 		}
 	}
 
-	mat[0].RO = 7.872000E-06;
-	mat[0].E = 2.000000E+08;
-	mat[0].MU = 2.500000E-01;
+	//считывание материалов
+	fl = 1;
+	int imat = 0;
+	while (fl == 1)
+	{
+		fgets(str1,255,fp1);
 
-	model_eltypes[0] = 182;
+		pch = strstr(str1,"MP, EX,");
+		if ( pch != NULL )
+		{
+			pch+=7;
+			sscanf(pch,"%ld",&imat);
+			pch = strstr(pch,",");
+			pch++;
+			mat[imat-1].E = atof(pch);
+		}
+		pch = strstr(str1,"MP, NUXY,");
+		if ( pch != NULL )
+		{
+			pch+=9;
+			sscanf(pch,"%ld",&imat);
+			pch = strstr(pch,",");
+			pch++;
+			mat[imat-1].MU = atof(pch);
+		}
+		pch = strstr(str1,"MP, DENS,");
+		if ( pch != NULL )
+		{
+			pch+=9;
+			sscanf(pch,"%ld",&imat);
+			pch = strstr(pch,",");
+			pch++;
+			mat[imat-1].RO = atof(pch);
+		}
+		pch = strstr(str1,"--------");
+		if ( pch != NULL )
+		{
+			pch = strstr(str1,"MATERIALS");
+			if (pch == NULL)
+			{
+				fl = 0;
+				break;
+			}
+		}
+	}
+
+
+	//считывание типов элементов
+	fl = 1;
+	int ieltype = 0;
+	while (fl == 1)
+	{
+		fgets(str1,255,fp1);
+
+		pch = strstr(str1,"ET,");
+		if ( pch != NULL )
+		{
+			pch+=3;
+			sscanf(pch,"%ld",&ieltype);
+			pch = strstr(pch,"PLANE182");
+			if ( pch != NULL )
+			{
+				model_eltypes[ieltype-1] = 182;
+			}
+		}
+		pch = strstr(str1,"--------");
+		if ( pch != NULL )
+		{
+			pch = strstr(str1,"ET");
+			if (pch == NULL)
+			{
+				fl = 0;
+				break;
+			}
+		}
+	}
+
+	// проверка числа рабочих координат, по типам элементов. 
+	// В одной модели должны быть только типы элементов с одинаоквым числом рабочих координат
+	KORT = nort_oldtypes[ model_eltypes[0] ]; //как минимум 1 тип элемента должен быть задан обязательно
+	for (i=1; i<neltypes; i++)
+	{
+		if ( nort_oldtypes[ model_eltypes[i] ] != KORT )
+		{
+			printf("\ninappropriate mix of element types by NORT number....\n");
+			break;
+		}
+	}
 
 	for (i=0; i<KORT; i++)
 	{
 		crdrenum[i] = i;
 	}
 
-	//подсчет количества элементов
+	//если задействованы менее 3х координат
+	//осуществляется анализ, какие из 3х координат используются
+	for (i=0; i<3; i++) 
+	{ 
+		similarcrdflag[i] = 0; //0 - координата не используется, 1 - координата используется  
+		similarcrd[i] = CRDTMP[i]; //координаты для первого узла
+	}
+	double relcrdeps = 1.e-15;
+
+	for (i=1; i<NN; i++)
+	{
+		for (j=0; j<3; j++)
+		{
+			if ( fabs( CRDTMP[i*3+j] ) > relcrdeps )
+			{
+				if ( fabs( (similarcrd[j] - CRDTMP[i*3+j])/CRDTMP[i*3+j] ) > relcrdeps )
+				{
+					similarcrdflag[j] = 1;
+				}
+			}
+			else
+			{
+				if ( fabs( similarcrd[j] - CRDTMP[i*3+j] ) > relcrdeps )
+				{
+					similarcrdflag[j] = 1;
+				}
+			}
+		}
+	}
+	KORT = 0;
+	for (i=0; i<3; i++)
+	{
+		if ( similarcrdflag[i] == 1 ) KORT++;
+	}
+
+	NNE = NN*KORT;
+
+	//копирование рабочих координат в окончательный используемый далее массив координат
+	if ( KORT == 3 )
+	{
+		CRD = CRDTMP;
+	}
+	else
+	{
+		CRD = new double[NNE];
+		int iort = 0;
+		for (j=0; j<3; j++)
+		{
+			if ( similarcrdflag[j] == 1 )
+			{
+				for (i=0; i<NN; i++)
+				{
+					CRD[ i*KORT + iort ] = CRDTMP[ i*KORT + j ];
+				}
+				iort++;
+			}
+		}
+		delete []CRDTMP;
+	}
+			
+		
+
+
+	//считывание матрицы индексов
 	fl = 1;
-	int iel = 0;
+	int iel = 0, writtennodes = 0;
 	in = 0;
 	while (fl == 1)
 	{
@@ -404,7 +565,6 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 				pch = strstr(str1,"-1");
 				if ( pch != NULL ) { fl = 0; break; }
 
-				fscanf(fp1,"%s",str1);
 				MTR[iel] = atoi(str1) - 1;
 
 				fscanf(fp1,"%s",strtmp);
@@ -419,15 +579,16 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 				fscanf(fp1,"%s",strtmp);
 				fscanf(fp1,"%s",strtmp);
 				fscanf(fp1,"%s",strtmp);
+				writtennodes = atoi(strtmp);
 				fscanf(fp1,"%s",strtmp);
 				fscanf(fp1,"%s",strtmp);
 
 				IND[iel][0] = eltype;
 				IND[iel][1] = nodenumber_newtypes[eltype]; 
-				for (j=0; j<IND[iel][1]; j++)
+				for (j=0; j<writtennodes; j++)
 				{
 					fscanf(fp1,"%s",strtmp);
-					IND[iel][j+2] = atoi(strtmp) - 1;
+					if (j < IND[iel][1]) IND[iel][j+2] = atoi(strtmp) - 1;
 				}
 
 				iel++;
@@ -445,6 +606,7 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 		perenum[i] = i;
 	}
 
+	//!!!!провверить: при экспорте из NX нумерация узлов может требовать другой перенумерации
 	//перенумерация локального порядка узлов для основных объемных элементов требует проверки
 	perenum[0] = 0;
 	perenum[1] = 1;
@@ -488,14 +650,36 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 		UFIX[i] = 0.0;
 	}
 
-	//считывание закреплений
+	//переход внутрь шага нагружения для последующего считывания закреплений-нагрузок
+	//может быть добавлен анализ числа шагов нагружения и их видов
 	fl = 1;
-	neltypes = 0;
 	while (fl == 1)
 	{
 		fgets(str1,255,fp1);
 
-		pch = strstr(str1,"COM,");
+		pch = strstr(str1,"Boundary Conditions");
+		if ( pch != NULL )
+		{
+			fl = 0;
+			break;
+		}
+	}
+
+	//считывание закреплений
+	fl = 1;
+	neltypes = 0;
+	char *pch2;
+	while (fl == 1)
+	{
+		fgets(str1,255,fp1);
+
+		pch = strstr(str1,"Loads");
+		if ( pch != NULL )
+		{
+			fl = 0;
+			break;
+		}
+		pch = strstr(str1,"FINISH");
 		if ( pch != NULL )
 		{
 			fl = 0;
@@ -505,32 +689,43 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 		pch = strstr(str1,"D,");
 		if ( pch != NULL )
 		{
+			pch2 = NULL;
+			pch+=2;
 			sscanf(pch,"%ld",&in);
 			in--;
 			iort = -1;
-			strstr(pch,"UX,");	
+			pch = strstr(str1,"UX,");	
 			if ( pch != NULL )
 			{
+				pch+=3;
 				iort = 0;
+				pch2 = pch;
 			}
-			strstr(pch,"UY,");	
+			pch = strstr(str1,"UY,");	
 			if ( pch != NULL )
 			{
+				pch+=3;
 				iort = 1;
+				pch2 = pch;
 			}
-			/*strstr(pch,"UZ,");	
+			pch = strstr(str1,"UZ,");	
 			if ( pch != NULL )
 			{
+				pch+=3;
 				iort = 2;
-			}*/
-			if (iort > -1)
+				pch2 = pch;
+			}
+			if ( iort > (KORT-1) ) iort = -1;
+			if (iort > -1 && pch2 != NULL)
 			{
 				FIX[in*KORT + iort] = 1;
-				sscanf(pch,"%e",&UFIX[in*KORT + iort]);
+				UFIX[in*KORT + iort] = atof(pch2);
+			}
 		}
 		
 	}
 
+	fclose(fp1);
 
 	delete [] perenum;
 	delete [] tmp;

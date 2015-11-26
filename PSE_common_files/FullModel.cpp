@@ -148,6 +148,11 @@ void FULLMODEL::ReadFullmodel()
 		sprintf(pathmatr,"%s",pathmain);
 		ReadFromAnsys_FullGrid();
 	}
+	if (loadtype == 4)
+	{
+		sprintf(pathmatr,"%s",pathmain);
+		ReadFromAnsys_inpFormat();
+	}
 }
 
 

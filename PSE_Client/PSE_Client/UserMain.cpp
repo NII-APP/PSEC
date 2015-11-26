@@ -11,10 +11,14 @@ extern int usermain_eigf();
 extern int usermain_elastat();
 
 extern char glob_str_path[256];
+char glob_str_taskpath[256];
 
 void usermain()
 {
 	sprintf(glob_str_path,"C:\\PSEtemp\\testeigen\\stifmatr");
+
+
+	sprintf(glob_str_taskpath,"C:\\Temp\\TestNX\\AnsFormat");
 
 	//usermain_motionint_eigf();
 	usermain_eigf();

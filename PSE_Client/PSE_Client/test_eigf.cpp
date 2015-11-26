@@ -6,6 +6,7 @@
 #include "conio.h"
 #include "Windows.h"
 
+extern char glob_str_taskpath[256];
 
 //тест (расчет —Ё модели и собственных частот)
 int usermain_eigf()
@@ -13,7 +14,8 @@ int usermain_eigf()
 	int i,j,nmat;
 	char strpath[256];
 
-sprintf(strpath,"C:\\Temp\\simple1_out_model");
+//sprintf(strpath,"C:\\Temp\\simple1_out_model");
+	sprintf(strpath,"%s",glob_str_taskpath);
 
 	MEM *pmem = new MEM[1];
 
@@ -25,7 +27,7 @@ sprintf(strpath,"C:\\Temp\\simple1_out_model");
 	pfm = new FULLMODEL[1];
 	pfm->MM = pmem;
 	sprintf(pfm->pathmain,"%s",strpath);
-	pfm->loadtype = 3; //Ansys Full Grid
+	pfm->loadtype = 4; //NX .inp file for ANSYS
 
 	pfm->ReadFullmodel();
 

@@ -22,7 +22,9 @@ void SEMODEL::AutoMLD_L0_EL(int *DS_)
 
 	// 1 -  составление полного графа КЭ модели
 	MM->GRNDEL(&NDEL,IND,NEL,NN);
-	MM->GenELGR(&GR,NEL,NN,4,NDEL,IND);
+	//!!!!!!!!!!!требуется переделать в соответствие с типом элементов в модели
+	if (pfm->KORT == 3) MM->GenELGR(&GR,NEL,NN,3,NDEL,IND);
+	if (pfm->KORT == 2) MM->GenELGR(&GR,NEL,NN,2,NDEL,IND);
 	
 	//проверка на наличие элементов, не имеющих общих граней с другими элементами
 	int fl = 0;

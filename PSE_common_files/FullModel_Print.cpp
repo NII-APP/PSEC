@@ -12,9 +12,19 @@ void FULLMODEL::ParaView_PrintCRD(FILE *fp)
 	fprintf(fp,"ASCII\n");
 	fprintf(fp,"DATASET UNSTRUCTURED_GRID\n");
 	fprintf(fp,"POINTS %d float\n",NN);
-	for (i=0; i<NN; i++)
+	if (KORT == 3)
 	{
-		fprintf(fp,"%f %f %f\n", CRD[KORT*i], CRD[KORT*i+1], CRD[KORT*i+2]);
+		for (i=0; i<NN; i++)
+		{
+			fprintf(fp,"%f %f %f\n", CRD[KORT*i], CRD[KORT*i+1], CRD[KORT*i+2]);
+		}
+	}
+	if (KORT == 2)
+	{
+		for (i=0; i<NN; i++)
+		{
+			fprintf(fp,"%f %f 0.0\n", CRD[KORT*i], CRD[KORT*i+1]);
+		}
 	}
 }
 
@@ -33,7 +43,7 @@ void FULLMODEL::ParaView_PrintIND(FILE *fp)
 	for (i=0; i<NEL; i++)
 	{
 		fprintf(fp,"%d ",IND[i][1]);
-		if ( IND[i][0] == 24 )
+		if ( IND[i][0] == 24 || IND[i][0] == 5 )
 		{
 			for (j=0; j<IND[i][1]; j++)
 			{
