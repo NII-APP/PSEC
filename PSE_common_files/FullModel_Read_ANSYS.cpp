@@ -535,7 +535,7 @@ void FULLMODEL::ReadFromAnsys_inpFormat()
 			{
 				for (i=0; i<NN; i++)
 				{
-					CRD[ i*KORT + iort ] = CRDTMP[ i*KORT + j ];
+					CRD[ i*KORT + iort ] = CRDTMP[ i*3 + j ];
 				}
 				iort++;
 			}
