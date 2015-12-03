@@ -23,6 +23,7 @@ void CEL::ELSTIF()
 		DetJacoby(J,&detJ);
 		
 		P[ipo].VP = detJ*Wvint[ipo];
+		if ( eltype == 5) P[ipo].VP = P[ipo].VP/2;
 		if ( eltype == 24) P[ipo].VP = P[ipo].VP/6;
 		if ( P[ipo].VP < 0.0 ) P[ipo].VP = fabs(P[ipo].VP); 
 		VEL += P[ipo].VP;
@@ -66,6 +67,7 @@ void CEL::ELMASS()
 				Jacoby(dFFvloc[i],J);
 				DetJacoby(J,&detJ);
 				P[i].VP = detJ*Wvint[i];
+				if ( eltype == 5)  P[i].VP = P[i].VP/2;
 				if ( eltype == 24) P[i].VP = P[i].VP/6;
 				if ( P[i].VP < 0.0 ) P[i].VP = fabs(P[i].VP); 
 				VEL += P[i].VP;
@@ -110,14 +112,26 @@ void CEL::CalcBGrad_3D(double **invJ, double **dFF)
 	}
 
 	//заполнение матрицы градиентов
-	for(i=0; i<NN; i++)
+	if(NORT == 2)
 	{
-		B[0][i*NORT] = dFFglob[0][i];
-		B[1][i*NORT+1] = dFFglob[1][i];
-		B[2][i*NORT+2] = dFFglob[2][i];
-		B[3][i*NORT] = dFFglob[1][i]; B[3][i*NORT+1] = dFFglob[0][i];
-		B[4][i*NORT+1] = dFFglob[2][i]; B[4][i*NORT+2] = dFFglob[1][i];
-		B[5][i*NORT] = dFFglob[2][i]; B[5][i*NORT+2] = dFFglob[0][i];
+		for(i=0; i<NN; i++)
+		{
+			B[0][i*NORT] = dFFglob[0][i];
+			B[1][i*NORT+1] = dFFglob[1][i];
+			B[2][i*NORT] = dFFglob[1][i]; B[2][i*NORT+1] = dFFglob[0][i];
+		}
+	}
+	if(NORT == 3)
+	{
+		for(i=0; i<NN; i++) 
+		{
+			B[0][i*NORT] = dFFglob[0][i];
+			B[1][i*NORT+1] = dFFglob[1][i];
+			B[2][i*NORT+2] = dFFglob[2][i];
+			B[3][i*NORT] = dFFglob[1][i]; B[3][i*NORT+1] = dFFglob[0][i];
+			B[4][i*NORT+1] = dFFglob[2][i]; B[4][i*NORT+2] = dFFglob[1][i];
+			B[5][i*NORT] = dFFglob[2][i]; B[5][i*NORT+2] = dFFglob[0][i];
+		}
 	}
 	
 	dFFglob = MM->MEM_DEL(dFFglob,NORT,NN);

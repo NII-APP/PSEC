@@ -76,6 +76,7 @@ void CSE::Initialize(SEstruct *ses)
 	NI = ses->NI;
 	NN = ses->NN;
 	NEL = ses->NEL;
+	KORT = sedat->KORT;
 
 }
 

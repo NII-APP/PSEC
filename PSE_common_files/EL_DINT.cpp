@@ -54,6 +54,23 @@ if ( (eltype == 24) || (eltype == 25) )
 	D[5][5]=C*c2;
 }
 
+if (eltype == 5) 
+{
+	E = material->E;
+	mu = material->MU;
+	C = E/(1-mu*mu);
+	D[0][0]=C*1;
+	D[0][1]=C*mu;
+	D[0][2]=0;
+	D[1][0]=C*mu;
+	D[1][1]=C*1;
+	D[1][2]=0;
+	D[2][0]=0;
+	D[2][1]=0;
+	D[2][2]=C*(1-mu)/2;
+	
+}
+
 	 return(0);
 
 }

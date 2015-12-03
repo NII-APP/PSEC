@@ -44,7 +44,7 @@ void CEL::Initialize(int ieltype)
 		eltype = ieltype;
 		GeneralParameters5();
 		GeneralMemInit();
-//		Init_VolIntPointLocCrd_22();
+		Init_VolIntPointLocCrd_5();
 //		Init_FaceNodes_22();
 		
 	}

@@ -41,7 +41,7 @@ int usermain_eigf()
 	peig->MMM = pmem;
 	peig->pfm = pfm;
 	peig->psem = psem;
-	peig->Init(2,0.00001,15);
+	peig->Init(30,0.00001,15);
 	peig->MainSSI();
 	
 

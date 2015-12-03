@@ -123,6 +123,7 @@ void SEMODEL::AutoMLDivision_LevelOutChange(int ilev, int nse, int *RENlev, int 
 				}
 			}
 		}
+		SE[ilev][ise].KORT = pfm->KORT;
 		SE[ilev][ise].NEL = iree;
 		SE[ilev][ise].NS = irenb;
 		SE[ilev][ise].NI = ireni;

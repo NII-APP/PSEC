@@ -16,11 +16,11 @@ char glob_str_modelname[256];
 
 void usermain()
 {
-	sprintf(glob_str_path,"C:\\PSEtemp\\testeigen\\stifmatr1");
+	sprintf(glob_str_path,"C:\\PSEtemp\\testeigen\\stifmatr");
 
-	sprintf(glob_str_taskpath,"C:\\Temp\\TestNX\\AnsFormat1");
+	sprintf(glob_str_taskpath,"C:\\NX_model");
 
-	sprintf(glob_str_modelname,"ans_model.txt");
+	sprintf(glob_str_modelname,"fem1_sim1-Solution_1.inp");
 
 	//usermain_motionint_eigf();
 	usermain_eigf();

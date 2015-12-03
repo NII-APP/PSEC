@@ -144,11 +144,22 @@ void FULLMODEL::ParaView_SingleXYZS(FILE *fp, char *name, double *data)
 void FULLMODEL::ParaView_SingleVector(FILE *fp, char *name, double *data)
 {
 	int i,j;
+	float tmp0 = 0.0;
 	fprintf(fp,"VECTORS %s float\n",name);
 //	fprintf(fp,"LOOKUP_TABLE default\n");
-	for (i=0; i<NN; i++)
+	if (KORT == 3)
 	{
-		fprintf(fp,"%e %e %e\n",(float)data[i*KORT],(float)data[i*KORT+1],(float)data[i*KORT+2]);
+		for (i=0; i<NN; i++)
+		{
+			fprintf(fp,"%e %e %e\n",(float)data[i*KORT],(float)data[i*KORT+1],(float)data[i*KORT+2]);
+		}
+	}
+	if (KORT == 2)
+	{
+		for (i=0; i<NN; i++)
+		{
+			fprintf(fp,"%e %e %e\n",(float)data[i*KORT],(float)data[i*KORT+1],tmp0);
+		}
 	}
 }
 
